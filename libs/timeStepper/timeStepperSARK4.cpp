@@ -48,7 +48,6 @@ sark4::sark4(dlong _Nelements, dlong _NhaloElements,
   lambda = (dfloat *) malloc(Nfields*sizeof(dfloat));
   memcpy(lambda, _lambda, Nfields*sizeof(dfloat));
 
-  Nrk = 5;
   order = 4;
   embeddedOrder = 3;
 

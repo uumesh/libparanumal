@@ -163,7 +163,7 @@ public:
 /* Semi-Analytic Adams-Bashforth, order 3 */
 class saab3: public timeStepper_t {
 protected:
-  int Nstages;
+  static constexpr Nstages{3};
   int shiftIndex;
 
   int Np, Nfields;
@@ -196,7 +196,7 @@ public:
 class sark4: public timeStepper_t {
 protected:
   MPI_Comm comm;
-  int Nrk;
+  static constexpr int Nrk{5};
   int order, embeddedOrder;
 
   int Np, Nfields;
@@ -263,7 +263,7 @@ public:
 class sark5: public timeStepper_t {
 protected:
   MPI_Comm comm;
-  int Nrk;
+  static constexpr int Nrk{7};
   int order, embeddedOrder;
 
   int Np, Nfields;
@@ -421,7 +421,7 @@ class mrsaab3: public timeStepper_t {
 protected:
   mesh_t &mesh;
 
-  int Nstages;
+  static constexpr int Nstages{3};
   int Nlevels;
   int Nfields;
 
