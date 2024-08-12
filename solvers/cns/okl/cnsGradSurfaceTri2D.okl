@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Tim Warburton, Noel Chalmers, Jesse Chan, Ali Karakus
+Copyright (c) 2017-2022 Tim Warburton, Noel Chalmers, Jesse Chan, Ali Karakus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +102,7 @@ SOFTWARE.
                                       &rP, &uP, &vP, &pP, &dudx, &dudy, &dvdx, &dvdy);
             }
 
-            const dfloat sc = invJ*sJ;
+            const dfloat sc = 0.5f*invJ*sJ;
             s_gradflux[es][0][n] = sc*nx*(uP-uM);
             s_gradflux[es][1][n] = sc*ny*(uP-uM);
             s_gradflux[es][2][n] = sc*nx*(vP-vM);
@@ -112,7 +112,6 @@ SOFTWARE.
       }
     }
 
-    @barrier("local");
 
     // for each node in the element
     for(int es=0;es<p_NblockS;++es;@inner(1)){

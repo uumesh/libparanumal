@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Tim Warburton, Noel Chalmers, Jesse Chan, Ali Karakus
+Copyright (c) 2017-2022 Tim Warburton, Noel Chalmers, Jesse Chan, Ali Karakus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -316,6 +316,7 @@ void surfaceMRTerms(const int e,
     const dfloat s22M = -c*c*(sqrt(2.0)*q6M - q3M*q3M/q1M);
 
     dfloat rP, uP, vP, s11P, s12P, s22P;
+    const dlong  idM = vmapM[sk];
     bnsBoundaryConditions2D(bc, c, nu, time, x[idM], y[idM], nx, ny,
                             rM, uM, vM, s11M, s12M, s22M,
                             &rP, &uP, &vP, &s11P, &s12P, &s22P);
@@ -403,6 +404,8 @@ void surfaceMRTerms_split(const int e,
     const dfloat s22M = -c*c*(sqrt(2.0)*q6M - q3M*q3M/q1M);
 
     dfloat rP, uP, vP, s11P, s12P, s22P;
+
+    const dlong  idM = vmapM[sk];
     bnsBoundaryConditions2D(bc, c, nu, time, x[idM], y[idM], nx, ny,
                             rM, uM, vM, s11M, s12M, s22M,
                             &rP, &uP, &vP, &s11P, &s12P, &s22P);
@@ -471,7 +474,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 0 & 2
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -491,7 +493,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 1 & 3
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -511,7 +512,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     for(int es=0;es<p_NblockS;++es;@inner(1)){
       for(int i=0;i<p_Nq;++i;@inner(0)){
@@ -571,7 +571,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 0 & 2
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -591,7 +590,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 1 & 3
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -611,7 +609,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     for(int es=0;es<p_NblockS;++es;@inner(1)){
       for(int i=0;i<p_Nq;++i;@inner(0)){
@@ -674,7 +671,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 0 & 2
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -694,7 +690,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 1 & 3
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -714,7 +709,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     //
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -775,7 +769,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 0 & 2
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -795,7 +788,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     // face 1 & 3
     for(int es=0;es<p_NblockS;++es;@inner(1)){
@@ -815,7 +807,6 @@ void surfaceMRTerms_split(const int e,
       }
     }
 
-    @barrier("local");
 
     //
     for(int es=0;es<p_NblockS;++es;@inner(1)){

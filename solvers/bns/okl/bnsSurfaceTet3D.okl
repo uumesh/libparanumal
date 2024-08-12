@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Tim Warburton, Noel Chalmers, Jesse Chan, Ali Karakus
+Copyright (c) 2017-2022 Tim Warburton, Noel Chalmers, Jesse Chan, Ali Karakus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -245,7 +245,6 @@ void upwind_split(const dfloat nx,  const dfloat ny,  const dfloat nz, const dfl
     }
 
     // wait for all @shared memory writes of the previous inner loop to complete
-    @barrier("local");
 
     // for each node in the element
     for(int n=0;n<p_maxNodes;++n;@inner(0)){
@@ -413,7 +412,6 @@ void upwind_split(const dfloat nx,  const dfloat ny,  const dfloat nz, const dfl
     }
 
     // wait for all @shared memory writes of the previous inner loop to complete
-    @barrier("local");
 
     // for each node in the element
     for(int n=0;n<p_maxNodes;++n;@inner(0)){
@@ -547,9 +545,10 @@ void upwind_split(const dfloat nx,  const dfloat ny,  const dfloat nz, const dfl
           const dfloat s22M = -c*c*(sqrt(2.0)*q9M  - q3M*q3M/q1M);
           const dfloat s33M = -c*c*(sqrt(2.0)*q10M - q4M*q4M/q1M);
 
+          const dlong  vidM = vmapM[id];
           dfloat rP, uP, vP, wP, s11P, s12P, s13P, s22P, s23P, s33P;
           bnsBoundaryConditions3D(bc, c, nu, time,
-                                  x[idM], y[idM], z[idM], nx, ny, nz,
+                                  x[vidM], y[vidM], z[vidM], nx, ny, nz,
                                    rM,  uM,  vM,  wM,  s11M,  s12M,  s13M,  s22M,  s23M,  s33M,
                                   &rP, &uP, &vP, &wP, &s11P, &s12P, &s13P, &s22P, &s23P, &s33P);
 
@@ -590,7 +589,6 @@ void upwind_split(const dfloat nx,  const dfloat ny,  const dfloat nz, const dfl
     }
 
     // wait for all @shared memory writes of the previous inner loop to complete
-    @barrier("local");
 
     // for each node in the element
     for(int n=0;n<p_maxNodes;++n;@inner(0)){
@@ -716,10 +714,11 @@ void upwind_split(const dfloat nx,  const dfloat ny,  const dfloat nz, const dfl
           const dfloat s11M = -c*c*(sqrt(2.0)*q8M  - q2M*q2M/q1M);
           const dfloat s22M = -c*c*(sqrt(2.0)*q9M  - q3M*q3M/q1M);
           const dfloat s33M = -c*c*(sqrt(2.0)*q10M - q4M*q4M/q1M);
-
+          
+          const dlong  vidM = vmapM[id];
           dfloat rP, uP, vP, wP, s11P, s12P, s13P, s22P, s23P, s33P;
           bnsBoundaryConditions3D(bc, c, nu, time,
-                                  x[idM], y[idM], z[idM], nx, ny, nz,
+                                  x[vidM], y[vidM], z[vidM], nx, ny, nz,
                                    rM,  uM,  vM,  wM,  s11M,  s12M,  s13M,  s22M,  s23M,  s33M,
                                   &rP, &uP, &vP, &wP, &s11P, &s12P, &s13P, &s22P, &s23P, &s33P);
 
@@ -755,7 +754,6 @@ void upwind_split(const dfloat nx,  const dfloat ny,  const dfloat nz, const dfl
     }
 
     // wait for all @shared memory writes of the previous inner loop to complete
-    @barrier("local");
 
     // for each node in the element
     for(int n=0;n<p_maxNodes;++n;@inner(0)){
